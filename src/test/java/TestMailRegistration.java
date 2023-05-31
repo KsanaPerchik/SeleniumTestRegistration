@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.HashMap;
 
-public class testMailLogin {
+public class TestMailRegistration {
     private WebDriver driver;
 
     HashMap<String,By> locators = new HashMap<>();
