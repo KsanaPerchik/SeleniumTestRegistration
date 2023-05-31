@@ -24,16 +24,46 @@ public class testMailLogin {
         locators.put("textNameMailLocator", By.cssSelector("[autocomplete=username]"));
         locators.put("textPasswordLocator", By.cssSelector("[autocomplete=new-password]"));
         locators.put("radioGenderLocator", By.cssSelector("label.label-0-2-145:nth-child(1) > div:nth-child(1) > div:nth-child(3)"));
+        locators.put("dayBirthdayLocator", By.cssSelector("[data-test-id=birth-date__day]"));
+        locators.put("dayOneBirthdayLocator", By.xpath("//*[text()='1']"));
+        locators.put("monthBirthdayLocator", By.cssSelector("[data-test-id=birth-date__month]"));
+        locators.put("monthJanuaryBirthdayLocator", By.xpath("//*[text()='Январь']"));
+        locators.put("yearBirthdayLocator", By.cssSelector("[data-test-id=birth-date__year]"));
+        locators.put("yearNumberBirthdayLocator", By.xpath("//*[text()='2000']"));
 
         return locators;
     }
 
     private void getDriverText(String locator) {
+        try {
         System.out.println(driver.findElement(locators.get(locator)).getText());
+        } catch (Exception e) {
+            System.err.println("Locator not found: " + locator);
+            this.driver.quit();
+            System.exit(0);
+        }
     }
 
     private void settDriverText(String locator, String setText) {
+        try {
         driver.findElement(locators.get(locator)).sendKeys(setText);
+        } catch (Exception e) {
+            System.err.println("Locator not found: " + locator);
+            this.driver.quit();
+            System.exit(0);
+
+        }
+    }
+
+    private void setDriverClick(String locator) {
+        try {
+        driver.findElement(locators.get(locator)).click();
+        } catch (Exception e) {
+            System.err.println("Locator not found: " + locator);
+            this.driver.quit();
+            System.exit(0);
+
+        }
     }
 
     @Before
@@ -45,7 +75,6 @@ public class testMailLogin {
         driver.findElement(locators.get("buttonRegistrationLocator")).click();
         Thread.sleep(3000);
         driver.findElement(locators.get("buttonCreateLocator")).click();
-
     }
 
     @After
@@ -64,18 +93,17 @@ public class testMailLogin {
     @Test
     public void createMailNameField() {
 
-        driver.findElement(locators.get("textNameLocator")).sendKeys("Petr");
+        settDriverText("textNameLocator", "Petr");
 
         getDriverText("textSurnameLocator");
         getDriverText("textErrorMailLocator");
         getDriverText("textErrorPasswordLocator");
-
     }
 
     @Test
     public void createMailSurnameField() {
 
-        driver.findElement(locators.get("textSurnameLocator")).sendKeys("Petrov");
+        settDriverText("textSurnameLocator", "Petrov");
 
         getDriverText("textErrorNameLocator");
         getDriverText("textErrorMailLocator");
@@ -88,8 +116,13 @@ public class testMailLogin {
         settDriverText("textNameLocator", "Petr");
         settDriverText("textSurnameLocator", "Petrov");
         settDriverText("textNameMailLocator", "petrov12.23");
+        setDriverClick("radioGenderLocator");
+        setDriverClick("dayBirthdayLocator");
+        setDriverClick("dayOneBirthdayLocator");
+        setDriverClick("monthBirthdayLocator");
+        setDriverClick("monthJanuaryBirthdayLocator");
+        setDriverClick("yearBirthdayLocator");
+        setDriverClick("yearNumberBirthdayLocator");
         settDriverText("textPasswordLocator", "oksanaSava");
-        driver.findElement(locators.get("radioGenderLocator")).click();
     }
-
 }
