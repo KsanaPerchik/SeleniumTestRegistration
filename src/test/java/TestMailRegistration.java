@@ -72,9 +72,9 @@ public class TestMailRegistration {
         System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
         this.driver = new ChromeDriver();
         driver.navigate().to("https://new.mail.ru/");
-        driver.findElement(locators.get("buttonRegistrationLocator")).click();
+        setDriverClick("buttonRegistrationLocator");
         Thread.sleep(3000);
-        driver.findElement(locators.get("buttonCreateLocator")).click();
+        setDriverClick("buttonCreateLocator");
     }
 
     @After
